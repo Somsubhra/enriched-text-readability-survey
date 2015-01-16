@@ -1,6 +1,12 @@
 <?php
-require_once "libs/Bootstrap.php";
-Bootstrap::start();
+require_once "var/Config.php";
+require_once "libs/Session.php";
+require_once "libs/Auth.php";
+require_once "libs/Printer.php";
+require_once "libs/Minify.php";
+
+ob_start("minifyHtml");
+Session::start();
 ?>
 
 <html>
@@ -64,5 +70,5 @@ Printer::printScripts();
 </html>
 
 <?php
-Bootstrap::end();
+Session::close();
 ?>
