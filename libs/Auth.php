@@ -1,7 +1,5 @@
 <?php
 
-require_once 'Session.php';
-
 class Auth {
 
     public static function isAuthorized() {
