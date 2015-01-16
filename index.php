@@ -18,6 +18,14 @@ Session::start();
 
     <?php Printer::printCss() ?>
 
+    <style>
+        form {
+            background-color: #f8f8f8;
+            padding: 25px;
+            border-radius: 5px;
+            border: 1px solid #e7e7e7;
+        }
+    </style>
 </head>
 
 <body>
