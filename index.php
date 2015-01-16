@@ -1,12 +1,17 @@
 <?php
 require_once "var/Config.php";
-require_once "libs/Session.php";
-require_once "libs/Auth.php";
 require_once "libs/Printer.php";
 require_once "libs/Minify.php";
+require_once "libs/Auth.php";
+require_once "libs/Session.php";
+
+Session::start();
+
+if(Auth::isAuthorized()) {
+    header("location: pages/home.php");
+}
 
 ob_start("minifyHtml");
-Session::start();
 ?>
 
 <html>
