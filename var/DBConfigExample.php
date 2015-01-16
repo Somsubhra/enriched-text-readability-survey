@@ -2,4 +2,4 @@
 define('DB_HOST', 'localhost');
 define('DB_USER_NAME', 'root');
 define('DB_PASSWORD', '');
-define('DB_DATABASE', 'CollegeTrader');
+define('DB_DATABASE', 'ETRS');

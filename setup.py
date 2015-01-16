@@ -33,7 +33,7 @@ def setup():
     output += "define('DB_HOST', '" + dbHost + "');\n"
     output += "define('DB_USER_NAME', '" + dbUsername + "');\n"
     output += "define('DB_PASSWORD', '" + dbPassword +"');\n"
-    output += "define('DB_DATABASE', 'CollegeTrader');\n"
+    output += "define('DB_DATABASE', 'ETRS');\n"
 
     # Write to configuration file
     f = open("var/DBConfig.php","wb")

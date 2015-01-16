@@ -9,7 +9,7 @@ class DB {
         if(DB::$conn == null) {
 
             try {
-                DB::$conn = new PDO("mysql:host=" . DB_HOST . ";dbname=CollegeTrader", DB_USER_NAME, DB_PASSWORD);
+                DB::$conn = new PDO("mysql:host=" . DB_HOST . ";dbname=ETRS", DB_USER_NAME, DB_PASSWORD);
                 DB::$conn->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
                 DB::$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             }
