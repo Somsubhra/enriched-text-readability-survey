@@ -41,14 +41,20 @@ Printer::printAuthNav($userId);
     <div class="row margin-top-60">
         <div class="col-md-4 col-md-offset-4">
             <h3>Please select your question set...</h3>
-            <?php
-            $query = "SELECT id FROM question_set";
-            $res = DB::query($query, array());
+            <div class="list-group">
+                <?php
+                $query = "SELECT id FROM question_set";
+                $res = DB::query($query, array());
 
-            while($row = $res->fetch(PDO::FETCH_ASSOC)) {
-                echo "<a href='set.php?id=" . $row["id"] . "'>Set #" . $row["id"] . "</a><br>";
-            }
-            ?>
+                while($row = $res->fetch(PDO::FETCH_ASSOC)) {
+                    echo "<a href='set.php?id=" .
+                        $row["id"] .
+                        "' class='list-group-item'>Set #" .
+                        $row["id"] .
+                        "</a>";
+                }
+                ?>
+            </div>
         </div>
     </div>
 </div>
