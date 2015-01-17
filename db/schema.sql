@@ -3,6 +3,15 @@ DROP DATABASE IF EXISTS ETRS;
 CREATE DATABASE IF NOT EXISTS ETRS;
 USE ETRS;
 
+CREATE TABLE IF NOT EXISTS `user` (
+  `id` BIGINT AUTO_INCREMENT NOT NULL,
+  `name` TEXT NOT NULL,
+  `age` INT NOT NULL,
+  `gender` TEXT NOT NULL,
+  `creation_time` TIMESTAMP NOT NULL,
+  PRIMARY KEY (`id`)
+);
+
 CREATE TABLE IF NOT EXISTS `passage_set` (
   `id` INT NOT NULL,
   `creation_time` TIMESTAMP NOT NULL,
@@ -50,22 +59,6 @@ CREATE TABLE IF NOT EXISTS `answer_key` (
   REFERENCES choice(`question_id`, `passage_id`, `set_id`, `id`)
 );
 
-CREATE TABLE IF NOT EXISTS `reference` (
-  `id` BIGINT AUTO_INCREMENT NOT NULL,
-  `content` TEXT NOT NULL,
-  `creation_time` TIMESTAMP NOT NULL,
-  PRIMARY KEY (`id`)
-);
-
-CREATE TABLE IF NOT EXISTS `user` (
-  `id` BIGINT AUTO_INCREMENT NOT NULL,
-  `name` TEXT NOT NULL,
-  `age` INT NOT NULL,
-  `gender` TEXT NOT NULL,
-  `creation_time` TIMESTAMP NOT NULL,
-  PRIMARY KEY (`id`)
-);
-
 CREATE TABLE IF NOT EXISTS `response` (
   `question_id` INT NOT NULL,
   `passage_id` INT NOT NULL,
@@ -78,6 +71,13 @@ CREATE TABLE IF NOT EXISTS `response` (
   FOREIGN KEY (`question_id`, `passage_id`, `set_id`, `choice_id`)
   REFERENCES choice(`question_id`, `passage_id`, `set_id`, `id`),
   FOREIGN KEY (`user_id`) REFERENCES user(`id`)
+);
+
+CREATE TABLE IF NOT EXISTS `reference` (
+  `id` BIGINT AUTO_INCREMENT NOT NULL,
+  `content` TEXT NOT NULL,
+  `creation_time` TIMESTAMP NOT NULL,
+  PRIMARY KEY (`id`)
 );
 
 CREATE TABLE IF NOT EXISTS `reference_click` (
