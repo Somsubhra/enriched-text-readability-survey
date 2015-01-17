@@ -37,6 +37,30 @@ $setId = Session::getVar("SET_ID");
 <?php
 Printer::printAuthNav($userId);
 ?>
+
+<div class="container">
+    <div class="col-md-2">
+        <div class="list-group">
+            <?php
+            $query = "SELECT id FROM question WHERE set_id=:set_id";
+            $res = DB::query($query, array(
+                "set_id" => $setId
+            ));
+
+            while($row = $res->fetch(PDO::FETCH_ASSOC)) {
+                echo "<a href='test.php?id=" .
+                    $row["id"] .
+                    "' class='list-group-item'>Question #" .
+                    $row["id"] .
+                    "</a>";
+            }
+            ?>
+        </div>
+    </div>
+    <div class="col-md-8">
+
+    </div>
+</div>
 <?php
 Printer::printScripts();
 ?>

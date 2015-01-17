@@ -4,35 +4,37 @@ CREATE DATABASE IF NOT EXISTS ETRS;
 USE ETRS;
 
 CREATE TABLE IF NOT EXISTS `question_set` (
-  `id` BIGINT NOT NULL,
+  `id` INT NOT NULL,
   `creation_time` TIMESTAMP NOT NULL,
   PRIMARY KEY (`id`)
 );
 
 CREATE TABLE IF NOT EXISTS `question` (
-  `id` BIGINT AUTO_INCREMENT NOT NULL,
+  `id` INT NOT NULL,
   `content` TEXT NOT NULL,
-  `set_id` BIGINT NOT NULL,
+  `set_id` INT NOT NULL,
   `creation_time` TIMESTAMP NOT NULL,
-  PRIMARY KEY (`id`),
+  PRIMARY KEY (`id`, `set_id`),
   FOREIGN KEY (`set_id`) REFERENCES question_set(`id`)
 );
 
 CREATE TABLE IF NOT EXISTS `choice` (
   `id` INT NOT NULL,
   `content` TEXT NOT NULL,
-  `question_id` BIGINT NOT NULL,
+  `question_id` INT NOT NULL,
+  `set_id` INT NOT NULL,
   `creation_time` TIMESTAMP NOT NULL,
-  PRIMARY KEY (`id`, `question_id`),
-  FOREIGN KEY (`question_id`) REFERENCES question(`id`)
+  PRIMARY KEY (`id`, `question_id`, `set_id`),
+  FOREIGN KEY (`question_id`, `set_id`) REFERENCES question(`id`, `set_id`)
 );
 
 CREATE TABLE IF NOT EXISTS `answer_key` (
-  `question_id` BIGINT NOT NULL,
+  `question_id` INT NOT NULL,
+  `set_id` INT NOT NULL,
   `choice_id` INT NOT NULL,
   `creation_time` TIMESTAMP NOT NULL,
-  PRIMARY KEY (`question_id`),
-  FOREIGN KEY (`question_id`, `choice_id`) REFERENCES choice(`question_id`, `id`)
+  PRIMARY KEY (`question_id`, `set_id`),
+  FOREIGN KEY (`question_id`, `set_id`, `choice_id`) REFERENCES choice(`question_id`, `set_id`, `id`)
 );
 
 CREATE TABLE IF NOT EXISTS `reference` (
@@ -52,13 +54,14 @@ CREATE TABLE IF NOT EXISTS `user` (
 );
 
 CREATE TABLE IF NOT EXISTS `response` (
-  `question_id` BIGINT NOT NULL,
+  `question_id` INT NOT NULL,
+  `set_id` INT NOT NULL,
   `choice_id` INT NOT NULL,
   `user_id` BIGINT NOT NULL,
   `creation_time` TIMESTAMP NOT NULL,
   `response_time` TIME NOT NULL,
   PRIMARY KEY (`question_id`, `user_id`),
-  FOREIGN KEY (`question_id`, `choice_id`) REFERENCES choice(`question_id`, `id`),
+  FOREIGN KEY (`question_id`, `set_id`, `choice_id`) REFERENCES choice(`question_id`, `set_id`, `id`),
   FOREIGN KEY (`user_id`) REFERENCES user(`id`)
 );
 
