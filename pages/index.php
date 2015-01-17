@@ -47,7 +47,10 @@ Printer::printNav();
                 <h3>Start Test</h3>
                 <?php
                 if(Session::existsVar("ERR_MSG")) {
-                    echo '<div class="error"><i class="glyphicon glyphicon-info-sign"></i> ' . Session::getVar("ERR_MSG") . '</div>';
+                    echo '<div class="alert alert-danger" role="alert">' .
+                        '<span class="glyphicon glyphicon-exclamation-sign"></span> ' .
+                        Session::getVar("ERR_MSG") .
+                        '</div>';
                     Session::unsetVar("ERR_MSG");
                 }
                 ?>

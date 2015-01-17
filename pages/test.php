@@ -86,6 +86,45 @@ Printer::printAuthNav($userId);
             echo $content;
             ?>
         </div>
+        <h4>Questions</h4>
+        <hr>
+        <ul class="list-group">
+            <?php
+            $query = "SELECT id, content FROM question
+            WHERE passage_id=:passage_id AND set_id=:set_id";
+
+            $res = DB::query($query, array(
+                "passage_id" => $passageId,
+                "set_id" => $setId
+            ));
+
+            while($row = $res->fetch(PDO::FETCH_ASSOC)) {
+
+                $questionId = $row["id"];
+
+                $html = "<li class='list-group-item'>";
+                $html .= $row["content"];
+
+                $query1 = "SELECT id, content FROM choice
+                WHERE question_id=:question_id AND passage_id=:passage_id AND set_id=:set_id";
+
+                $res1 = DB::query($query1, array(
+                    "question_id" => $questionId,
+                    "passage_id" => $passageId,
+                    "set_id" => $setId
+                ));
+
+                while($row1 = $res1->fetch(PDO::FETCH_ASSOC)) {
+                    $html .= "<div class='radio'><label><input type='radio' name='ans_" .
+                        $questionId . "'> " . $row1["content"] . "</label></div>";
+                }
+
+                $html .= "</li>";
+
+                echo $html;
+            }
+            ?>
+        </ul>
     </div>
 </div>
 <?php
