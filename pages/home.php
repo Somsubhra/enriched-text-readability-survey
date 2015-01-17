@@ -43,7 +43,7 @@ Printer::printAuthNav($userId);
             <h3>Please select your question set...</h3>
             <div class="list-group">
                 <?php
-                $query = "SELECT id FROM question_set";
+                $query = "SELECT id FROM passage_set";
                 $res = DB::query($query, array());
 
                 while($row = $res->fetch(PDO::FETCH_ASSOC)) {

@@ -18,7 +18,7 @@ if(Session::existsVar("SET_ID")) {
 
 $setId = Secure::string($_GET["id"]);
 
-$query = "SELECT COUNT(*) FROM question_set WHERE id=:id";
+$query = "SELECT COUNT(*) FROM passage_set WHERE id=:id";
 $res = DB::query($query, array(
     "id" => $setId
 ));
