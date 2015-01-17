@@ -66,9 +66,9 @@ Printer::printAuthNav($userId);
         </div>
     </div>
     <div class="col-md-10">
+        <h3>Read the following passage and answer the questions</h3>
+        <hr>
         <div class="well">
-            <h4>Read the following passage and answer the questions</h4>
-            <hr>
             <?php
             $query = "SELECT content FROM passage
             WHERE id=:passage_id AND set_id=:set_id";
@@ -87,7 +87,6 @@ Printer::printAuthNav($userId);
             ?>
         </div>
         <h4>Questions</h4>
-        <hr>
         <ul class="list-group">
             <?php
             $query = "SELECT id, content FROM question

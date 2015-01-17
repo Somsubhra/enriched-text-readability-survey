@@ -36,7 +36,7 @@ class Printer {
             '</div>' .
             '<ul class="nav navbar-nav navbar-right">' .
             '<li class="active"><a href="home.php">Hi ' . User::nameFromId($id) .'</a></li>' .
-            '<li><a href="logout.php">Logout</a></li>' .
+            '<li><a href="logout.php">Finish Test</a></li>' .
             '</ul>' .
             '</div>' .
             '</nav>';
