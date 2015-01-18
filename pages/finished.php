@@ -36,6 +36,7 @@ ob_start("minifyHtml");
     <div class="container">
         <div class="well margin-top-60">
             <h1>Thanks for your time!</h1>
+            <h3>You are an important part of our research.</h3>
             <h3>The data you generated during the test will provide us
                 useful stats for our research @IRLAB, DA-IICT.</h3>
         </div>
