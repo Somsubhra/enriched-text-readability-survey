@@ -23,7 +23,7 @@ function startCountdown(timeLeft) {
         tl--;
         var minutes = parseInt( tl / 60 ) % 60;
         var seconds = tl % 60;
-        $("#timer").html(minutes + " mins, " + seconds + " secs");
+        $("#timer").html(minutes + " mins, " + seconds + " secs remaining");
     }, 1000);
 }
 

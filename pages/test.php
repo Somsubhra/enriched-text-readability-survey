@@ -71,12 +71,11 @@ Printer::printAuthNav($userId);
 <div class="container">
     <div class="col-md-2">
         <div class="well">
-            <h4>
+            <h1 class="text-center">
                 <span class="glyphicon glyphicon-time"></span>
-                Time left
-            </h4>
-            <div id="timer">
-                <?php echo $minutesLeft . " mins, " . $secondsLeft . " secs" ?>
+            </h1>
+            <div id="timer" class="text-center">
+                <?php echo $minutesLeft . " mins, " . $secondsLeft . " secs" ?> remaining
             </div>
         </div>
         <div class="list-group">
