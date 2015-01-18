@@ -50,10 +50,30 @@ class Printer {
             '</div>' .
             '<ul class="nav navbar-nav navbar-right">' .
             '<li class="active"><a href="home.php">Hi ' . $name .'</a></li>' .
-            '<li><a href="logout.php">Finish Test</a></li>' .
+            '<li><a href="javascript:void(0);" data-toggle="modal"' .
+            ' data-target="#logout-modal">Finish Test</a></li>' .
             '</ul>' .
             '</div>' .
             '</nav>';
+
+        $html .= '<div class="modal fade" id="logout-modal">' .
+                '<div class="modal-dialog">' .
+                '<div class="modal-content">' .
+                '<div class="modal-header">' .
+                '<button type="button" class="close" data-dismiss="modal" aria-label="Close">' .
+                '<span aria-hidden="true">&times;</span></button>' .
+                '<h4 class="modal-title">Finish Test?</h4>' .
+                '</div>' .
+                '<div class="modal-body">' .
+                '<p>Are you sure you want to finish the test?</p>' .
+                '</div>' .
+                '<div class="modal-footer">' .
+                '<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>' .
+                '<a class="btn btn-primary" href="logout.php">Finish Test</a>' .
+                '</div>' .
+                '</div>' .
+                '</div>' .
+                '</div>';
 
         echo $html;
     }

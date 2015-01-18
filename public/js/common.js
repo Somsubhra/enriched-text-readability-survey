@@ -16,3 +16,7 @@ $(document).ready(function() {
             });
     });
 });
+
+function logoutModal() {
+
+}
