@@ -38,6 +38,20 @@ DB::insert($query, array(
     "user_id" => $userId
 ));
 
+$query = "SELECT creation_time FROM user_set
+WHERE user_id=:user_id AND set_id=:set_id";
+
+$res = DB::query($query, array(
+    "user_id" => $userId,
+    "set_id" => $setId
+));
+
+$testStartTime = date_create($res->fetchColumn())->getTimestamp();
+$timeNow = time();
+$timeSpent = $timeNow - $testStartTime;
+$timeLeft = TEST_TIME - $timeSpent;
+$minutesLeft = intval($timeLeft / 60) % 60;
+$secondsLeft = $timeLeft % 60;
 ?>
 
 <html>
@@ -56,6 +70,15 @@ Printer::printAuthNav($userId);
 
 <div class="container">
     <div class="col-md-2">
+        <div class="well">
+            <h4>
+                <span class="glyphicon glyphicon-time"></span>
+                Time left
+            </h4>
+            <div id="timer">
+                <?php echo $minutesLeft . " mins, " . $secondsLeft . " secs" ?>
+            </div>
+        </div>
         <div class="list-group">
             <?php
             $query = "SELECT id FROM passage WHERE set_id=:set_id";
@@ -194,5 +217,10 @@ Printer::printAuthNav($userId);
 Printer::printRefModal();
 Printer::printScripts();
 ?>
+<script>
+    $(document).ready(function() {
+        startCountdown('<?php echo $timeLeft ?>');
+    });
+</script>
 </body>
 </html>
