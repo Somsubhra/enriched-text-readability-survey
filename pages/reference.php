@@ -24,6 +24,21 @@ if($refId == "") {
     )));
 }
 
+$query = "INSERT INTO reference_click(reference_id, user_id)
+VALUES (:reference_id, :user_id)";
+
+try {
+    DB::insert($query, array(
+        "reference_id" => $refId,
+        "user_id" => $userId
+    ));
+}
+catch(Exception $ex) {
+    die(json_encode(array(
+        "sx" => false
+    )));
+}
+
 $query = "SELECT content FROM reference WHERE id=:ref_id";
 
 $res = DB::query($query, array(

@@ -18,16 +18,22 @@ if(Session::existsVar("SET_ID")) {
 
 $setId = Secure::string($_GET["id"]);
 
-$query = "SELECT COUNT(*) FROM passage_set WHERE id=:id";
-$res = DB::query($query, array(
-    "id" => $setId
-));
+try {
+    $query = "INSERT INTO user_set(user_id, set_id)
+    VALUES(:user_id, :set_id)";
 
-if($res->fetchColumn() == 1) {
-    Session::setVar("SET_ID", $setId);
-    header("location: test.php");
-} else {
-    header("location: home.php");
+    DB::insert($query, array(
+        "user_id" => Auth::userId(),
+        "set_id" => $setId
+    ));
 }
+catch(Exception $ex) {
+    header("location: home.php");
+    Session::close();
+    exit();
+}
+
+Session::setVar("SET_ID", $setId);
+header("location: test.php");
 
 Session::close();

@@ -18,6 +18,15 @@ CREATE TABLE IF NOT EXISTS `passage_set` (
   PRIMARY KEY (`id`)
 );
 
+CREATE TABLE IF NOT EXISTS `user_set` (
+  `user_id` BIGINT NOT NULL,
+  `set_id` INT NOT NULL,
+  `creation_time` TIMESTAMP NOT NULL,
+  PRIMARY KEY (`user_id`, `set_id`),
+  FOREIGN KEY (`user_id`) REFERENCES user(`id`),
+  FOREIGN KEY (`set_id`) REFERENCES passage_set(`id`)
+);
+
 CREATE TABLE IF NOT EXISTS `passage` (
   `id` INT NOT NULL,
   `content` TEXT NOT NULL,
@@ -25,6 +34,15 @@ CREATE TABLE IF NOT EXISTS `passage` (
   `creation_time` TIMESTAMP NOT NULL,
   PRIMARY KEY (`id`, `set_id`),
   FOREIGN KEY (`set_id`) REFERENCES passage_set(`id`)
+);
+
+CREATE TABLE IF NOT EXISTS `passage_click` (
+  `passage_id` INT NOT NULL,
+  `set_id` INT NOT NULL,
+  `user_id` BIGINT NOT NULL,
+  `creation_time` TIMESTAMP NOT NULL,
+  FOREIGN KEY (`passage_id`, `set_id`) REFERENCES passage(`id`, `set_id`),
+  FOREIGN KEY (`user_id`) REFERENCES user(`id`)
 );
 
 CREATE TABLE IF NOT EXISTS `question` (
@@ -66,7 +84,6 @@ CREATE TABLE IF NOT EXISTS `response` (
   `choice_id` INT NOT NULL,
   `user_id` BIGINT NOT NULL,
   `creation_time` TIMESTAMP NOT NULL,
-  `response_time` INT NOT NULL,
   FOREIGN KEY (`question_id`, `passage_id`, `set_id`, `choice_id`)
   REFERENCES choice(`question_id`, `passage_id`, `set_id`, `id`),
   FOREIGN KEY (`user_id`) REFERENCES user(`id`)
@@ -82,9 +99,7 @@ CREATE TABLE IF NOT EXISTS `reference` (
 CREATE TABLE IF NOT EXISTS `reference_click` (
   `reference_id` BIGINT NOT NULL,
   `user_id` BIGINT NOT NULL,
-  `click_time` DATETIME NOT NULL,
   `creation_time` TIMESTAMP NOT NULL,
-  PRIMARY KEY (`reference_id`, `user_id`, `click_time`),
   FOREIGN KEY (`reference_id`) REFERENCES reference(`id`),
   FOREIGN KEY (`user_id`) REFERENCES user(`id`)
 );
