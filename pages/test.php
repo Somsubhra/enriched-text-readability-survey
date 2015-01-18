@@ -105,6 +105,23 @@ Printer::printAuthNav($userId);
 
                 $questionId = $row["id"];
 
+                // Get the selected choice if any
+                $query1 = "SELECT choice_id FROM response
+                WHERE question_id=:question_id AND passage_id=:passage_id
+                AND set_id=:set_id AND user_id=:user_id";
+
+                $res1 = DB::query($query1, array(
+                    "question_id" => $questionId,
+                    "passage_id" => $passageId,
+                    "set_id" => $setId,
+                    "user_id" => $userId
+                ));
+
+                $selectedChoice = -1;
+                while($row1 = $res1->fetch(PDO::FETCH_ASSOC)) {
+                    $selectedChoice = $row1["choice_id"];
+                }
+
                 $html = "<li class='list-group-item'>";
                 $html .= $row["content"];
 
@@ -118,9 +135,16 @@ Printer::printAuthNav($userId);
                 ));
 
                 while($row1 = $res1->fetch(PDO::FETCH_ASSOC)) {
-                    $value = $row1["id"] . "_" . $questionId . "_" . $passageId;
+
+                    $choiceId = $row1["id"];
+                    $selected = "";
+                    if($selectedChoice == $choiceId) {
+                        $selected = "checked";
+                    }
+
+                    $value = $choiceId . "_" . $questionId . "_" . $passageId;
                     $html .= "<div class='radio'><label><input type='radio' name='ans_" .
-                        $questionId . "' class='res-inp' value='" . $value . "'> " .
+                        $questionId . "' class='res-inp' value='" . $value . "' $selected> " .
                         $row1["content"] . "</label></div>";
                 }
 
