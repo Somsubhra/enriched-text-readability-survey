@@ -4,7 +4,7 @@ INSERT INTO passage_set(`id`) VALUES
 (1), (2), (3), (4);
 
 INSERT INTO passage(`id`, `content`, `set_id`) VALUES
-(1, 'Content for passage 1 of set 1', 1),
+(1, 'Content for <a href="javascript:ref(1)">passage</a> 1 of set 1', 1),
 (2, 'Content for passage 2 of set 1', 1),
 (1, 'Content for passage 1 of set 2', 2),
 (2, 'Content for passage 2 of set 2', 2),
@@ -64,3 +64,8 @@ INSERT INTO choice(`id`, `content`, `question_id`, `passage_id`, `set_id`) VALUE
 (2, 'Option 2', 1, 2, 4),
 (1, 'Option 1', 2, 2, 4),
 (2, 'Option 2', 2, 2, 4);
+
+INSERT INTO reference(`id`, `content`) VALUES
+(1, 'Reference 1'),
+(2, 'Reference 2'),
+(3, 'Reference 3');
