@@ -165,7 +165,8 @@ Printer::printAuthNav($userId);
                 // Get the selected choice if any
                 $query1 = "SELECT choice_id FROM response
                 WHERE question_id=:question_id AND passage_id=:passage_id
-                AND set_id=:set_id AND user_id=:user_id";
+                AND set_id=:set_id AND user_id=:user_id
+                ORDER BY creation_time";
 
                 $res1 = DB::query($query1, array(
                     "question_id" => $questionId,
