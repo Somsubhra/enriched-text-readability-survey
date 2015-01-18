@@ -44,21 +44,6 @@ $choiceId = $response[0];
 $questionId = $response[1];
 $passageId = $response[2];
 
-// Select the maximum of response time of all response
-// for the passage and add it to the response time
-$query = "SELECT MAX(response_time) FROM response
-WHERE passage_id=:passage_id AND set_id=:set_id AND user_id=:user_id";
-
-$res = DB::query($query, array(
-    "passage_id" => $passageId,
-    "set_id" => $setId,
-    "user_id" => $userId
-));
-
-if($offset = $res->fetchColumn()) {
-    $responseTime += $offset;
-}
-
 // Add the response
 $query = "INSERT INTO response(question_id, passage_id, set_id, choice_id, user_id, response_time)
 VALUES(:question_id, :passage_id, :set_id, :choice_id, :user_id, :response_time)";
