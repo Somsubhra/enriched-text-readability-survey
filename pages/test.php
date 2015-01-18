@@ -56,9 +56,13 @@ Printer::printAuthNav($userId);
             ));
 
             while($row = $res->fetch(PDO::FETCH_ASSOC)) {
+                $active = "";
+                if($passageId == $row["id"]) {
+                    $active = "active";
+                }
                 echo "<a href='test.php?id=" .
                     $row["id"] .
-                    "' class='list-group-item'>Passage #" .
+                    "' class='list-group-item $active'>Passage #" .
                     $row["id"] .
                     "</a>";
             }
