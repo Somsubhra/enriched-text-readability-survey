@@ -1,7 +1,7 @@
 var t = 0;
 
 function setT0(t0) {
-    t = t0;
+    t = parseInt(t0);
 }
 
 $(document).ready(function() {

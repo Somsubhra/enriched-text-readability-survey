@@ -131,5 +131,23 @@ Printer::printAuthNav($userId);
 <?php
 Printer::printScripts();
 ?>
+<script>
+    <?php
+    $query = "SELECT MAX(response_time) FROM response
+    WHERE passage_id=:passage_id AND set_id=:set_id AND user_id=:user_id";
+
+    $res = DB::query($query, array(
+        "passage_id" => $passageId,
+        "set_id" => $setId,
+        "user_id" => $userId
+    ));
+
+    $t0 = 0;
+    if($offset = $res->fetchColumn()) {
+        $t0 = $offset;
+    }
+    ?>
+    setT0('<?php echo $t0 ?>');
+</script>
 </body>
 </html>
