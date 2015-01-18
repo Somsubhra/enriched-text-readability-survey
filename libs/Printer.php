@@ -11,7 +11,8 @@ class Printer {
 
     public static function printScripts() {
         $html = '<script type="text/javascript" src="../public/jquery/jquery-2.1.1.min.js"></script>' .
-             '<script type="text/javascript" src="../public/bootstrap/js/bootstrap.min.js"></script>';
+             '<script type="text/javascript" src="../public/bootstrap/js/bootstrap.min.js"></script>' .
+             '<script type="text/javascript" src="../public/js/common.js"></script>';
 
         echo $html;
     }

@@ -114,8 +114,10 @@ Printer::printAuthNav($userId);
                 ));
 
                 while($row1 = $res1->fetch(PDO::FETCH_ASSOC)) {
+                    $value = $row1["id"] . "_" . $questionId . "_" . $passageId;
                     $html .= "<div class='radio'><label><input type='radio' name='ans_" .
-                        $questionId . "' class='res-inp'> " . $row1["content"] . "</label></div>";
+                        $questionId . "' class='res-inp' value='" . $value . "'> " .
+                        $row1["content"] . "</label></div>";
                 }
 
                 $html .= "</li>";
