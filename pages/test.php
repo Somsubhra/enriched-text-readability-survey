@@ -4,7 +4,6 @@ require_once "../libs/Session.php";
 require_once "../libs/DB.php";
 require_once "../libs/Auth.php";
 require_once "../libs/Printer.php";
-require_once "../libs/User.php";
 require_once "../libs/Minify.php";
 require_once "../libs/Secure.php";
 
@@ -56,14 +55,40 @@ Printer::printAuthNav($userId);
             ));
 
             while($row = $res->fetch(PDO::FETCH_ASSOC)) {
+
+                $rowId = $row["id"];
+
                 $active = "";
-                if($passageId == $row["id"]) {
+                if($passageId == $rowId) {
                     $active = "active";
                 }
+
+                $query1 = "SELECT COUNT(*) FROM question
+                WHERE passage_id=:passage_id AND set_id=:set_id";
+
+                $res1 = DB::query($query1, array(
+                    "passage_id" => $rowId,
+                    "set_id" => $setId
+                ));
+
+                $totalQuestions = $res1->fetchColumn();
+
+                $query1 = "SELECT COUNT(DISTINCT question_id) FROM response
+                WHERE set_id=:set_id AND passage_id=:passage_id AND user_id=:user_id";
+
+                $res1 = DB::query($query1, array(
+                    "set_id" => $setId,
+                    "passage_id" => $rowId,
+                    "user_id" => $userId
+                ));
+
+                $answered = $res1->fetchColumn();
+
                 echo "<a href='test.php?id=" .
-                    $row["id"] .
+                    $rowId .
                     "' class='list-group-item $active'>Passage #" .
-                    $row["id"] .
+                    $rowId .
+                    "<span class='badge'>" . $answered . "/" . $totalQuestions . "</span>" .
                     "</a>";
             }
             ?>

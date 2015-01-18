@@ -4,7 +4,6 @@ require_once "../libs/Session.php";
 require_once "../libs/DB.php";
 require_once "../libs/Auth.php";
 require_once "../libs/Printer.php";
-require_once "../libs/User.php";
 require_once "../libs/Minify.php";
 
 Session::start();

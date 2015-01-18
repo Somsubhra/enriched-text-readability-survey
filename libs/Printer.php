@@ -30,13 +30,26 @@ class Printer {
     }
 
     public static function printAuthNav($id) {
+
+        $query = "SELECT name FROM user WHERE id=:id";
+
+        $res = DB::query($query, array(
+            "id" => $id
+        ));
+
+        $name = "";
+
+        while($row = $res->fetch(PDO::FETCH_ASSOC)) {
+            $name = $row["name"];
+        }
+
         $html = '<nav class="navbar navbar-default" role="navigation">' .
             '<div class="container-fluid">' .
             '<div class="navbar-header">' .
             '<a class="navbar-brand" href="index.php">' . APP_NAME . '</a>' .
             '</div>' .
             '<ul class="nav navbar-nav navbar-right">' .
-            '<li class="active"><a href="home.php">Hi ' . User::nameFromId($id) .'</a></li>' .
+            '<li class="active"><a href="home.php">Hi ' . $name .'</a></li>' .
             '<li><a href="logout.php">Finish Test</a></li>' .
             '</ul>' .
             '</div>' .
