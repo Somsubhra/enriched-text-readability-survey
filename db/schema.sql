@@ -66,8 +66,8 @@ CREATE TABLE IF NOT EXISTS `response` (
   `choice_id` INT NOT NULL,
   `user_id` BIGINT NOT NULL,
   `creation_time` TIMESTAMP NOT NULL,
-  `response_time` TIME NOT NULL,
-  PRIMARY KEY (`question_id`, `passage_id`, `user_id`),
+  `response_time` INT NOT NULL,
+  PRIMARY KEY (`question_id`, `passage_id`, `choice_id`, `user_id`, `creation_time`),
   FOREIGN KEY (`question_id`, `passage_id`, `set_id`, `choice_id`)
   REFERENCES choice(`question_id`, `passage_id`, `set_id`, `id`),
   FOREIGN KEY (`user_id`) REFERENCES user(`id`)
