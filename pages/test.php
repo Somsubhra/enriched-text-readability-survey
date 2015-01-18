@@ -215,6 +215,7 @@ Printer::printAuthNav($userId);
 </div>
 <?php
 Printer::printRefModal();
+Printer::printFooter();
 Printer::printScripts();
 ?>
 <script>

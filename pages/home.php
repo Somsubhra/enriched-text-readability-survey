@@ -59,6 +59,7 @@ Printer::printAuthNav($userId);
 </div>
 
 <?php
+Printer::printFooter();
 Printer::printScripts();
 ?>
 

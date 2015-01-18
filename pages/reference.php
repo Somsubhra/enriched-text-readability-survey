@@ -51,9 +51,9 @@ while($row = $res->fetch(PDO::FETCH_ASSOC)) {
     $content = $row["content"];
 }
 
-die(json_encode(array(
+echo json_encode(array(
     "sx" => true,
     "content" => $content
-)));
+));
 
 Session::close();

@@ -99,4 +99,13 @@ class Printer {
 
         print $html;
     }
+
+    public static function printFooter() {
+        $html = '<div id="footer">' .
+                '<div class="container">' .
+                'Copyrights &#169; 2015 - <a href="http://irlab.daiict.ac.in/">IRLAB, DA-IICT</a>' .
+                '</div>' .
+                '</div>';
+        echo $html;
+    }
 }

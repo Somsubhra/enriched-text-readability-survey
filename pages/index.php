@@ -85,6 +85,7 @@ Printer::printNav();
 </div>
 
 <?php
+Printer::printFooter();
 Printer::printScripts();
 ?>
 </body>

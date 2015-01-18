@@ -14,40 +14,41 @@ if(Auth::isAuthorized()) {
 ob_start("minifyHtml");
 ?>
 
-    <html>
-    <head>
+<html>
+<head>
 
-        <title>
-            <?php echo APP_NAME ?>
-        </title>
+    <title>
+        <?php echo APP_NAME ?>
+    </title>
 
-        <?php Printer::printCss() ?>
+    <?php Printer::printCss() ?>
 
-        <style>
-        </style>
-    </head>
+    <style>
+    </style>
+</head>
 
-    <body>
+<body>
 
-    <?php
-    Printer::printNav();
-    ?>
+<?php
+Printer::printNav();
+?>
 
-    <div class="container">
-        <div class="well margin-top-60">
-            <h1>Thanks for your time!</h1>
-            <h3>You are an important part of our research.</h3>
-            <h3>The data you generated during the test will provide us
-                useful stats for our research @IRLAB, DA-IICT.</h3>
-        </div>
+<div class="container">
+    <div class="well margin-top-60">
+        <h1>Thanks for your time!</h1>
+        <h3>You are an important part of our research.</h3>
+        <h3>The data you generated during the test will provide us
+            useful stats for our research @<a href="http://irlab.daiict.ac.in/">IRLAB, DA-IICT</a>.</h3>
     </div>
+</div>
 
-    <?php
-    Printer::printScripts();
-    ?>
-    </body>
+<?php
+Printer::printFooter();
+Printer::printScripts();
+?>
+</body>
 
-    </html>
+</html>
 
 <?php
 Session::close();
