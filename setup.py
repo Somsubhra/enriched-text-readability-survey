@@ -26,11 +26,11 @@ def setup():
         print("User authenticated. Connected to mysql server...")
         print("Database schema at db/schema.sql imported successfully...")
 
-    if(os.system("mysql -h " + dbHost+" -u " + dbUsername + " -p" + dbPassword + " < db/dummy_data.sql")):
+    if(os.system("mysql -h " + dbHost+" -u " + dbUsername + " -p" + dbPassword + " < db/data.sql")):
         print("Error: Wrong username/password/host. Please check again...Aborted")
         exit()
     else:
-        print("Dummy data at db/dummy_data.sql imported successfully...")
+        print("Data at db/data.sql imported successfully...")
 
     print("Configuring project...")
 

@@ -14,6 +14,12 @@ if(!Auth::isAuthorized()) {
     )));
 }
 
+if(!Session::existsVar("SET_ID")) {
+    die(json_encode(array(
+        "sx" => false
+    )));
+}
+
 $userId = Auth::userId();
 
 $refId = Secure::string($_GET["id"]);
@@ -53,7 +59,7 @@ while($row = $res->fetch(PDO::FETCH_ASSOC)) {
 
 echo json_encode(array(
     "sx" => true,
-    "content" => $content
+    "content" => utf8_encode($content)
 ));
 
 Session::close();
