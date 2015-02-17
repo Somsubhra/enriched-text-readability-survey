@@ -70,7 +70,7 @@ Printer::printAuthNav($userId);
 
 <div class="container">
     <div class="col-md-2">
-        <div class="well">
+        <div class="well" hidden>
             <h1 class="text-center">
                 <span class="glyphicon glyphicon-time"></span>
             </h1>
