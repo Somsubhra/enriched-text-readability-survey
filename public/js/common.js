@@ -32,8 +32,6 @@ $(document).ready(function() {
         $.getJSON("response.php",
             {
                 "res": $(this).val()
-            }).done(function(data) {
-                console.log(data);
             });
     });
 
@@ -46,8 +44,6 @@ $(document).ready(function() {
                     "res": $(this).attr("data-id"),
                     "c": $(this).val(),
                     "t": "text"
-                }).done(function(data) {
-                    console.log(data);
                 });
         }
     });
