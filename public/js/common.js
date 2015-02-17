@@ -32,6 +32,23 @@ $(document).ready(function() {
         $.getJSON("response.php",
             {
                 "res": $(this).val()
+            }).done(function(data) {
+                console.log(data);
             });
+    });
+
+    $(".res-text-inp").keypress(function(e) {
+        var key = e.which;
+
+        if(key == 13) {
+            $.getJSON("response.php",
+                {
+                    "res": $(this).attr("data-id"),
+                    "c": $(this).val(),
+                    "t": "text"
+                }).done(function(data) {
+                    console.log(data);
+                });
+        }
     });
 });

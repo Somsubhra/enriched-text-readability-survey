@@ -51,7 +51,7 @@ CREATE TABLE IF NOT EXISTS `question` (
   `passage_id` INT NOT NULL,
   `set_id` INT NOT NULL,
   `creation_time` TIMESTAMP NOT NULL,
-  `type` VARCHAR(4) NOT NULL DEFAULT 'mcq',
+  `res_type` VARCHAR(4) NOT NULL DEFAULT 'mcq',
   PRIMARY KEY (`id`, `passage_id`, `set_id`),
   FOREIGN KEY (`passage_id`, `set_id`) REFERENCES passage(`id`, `set_id`)
 );

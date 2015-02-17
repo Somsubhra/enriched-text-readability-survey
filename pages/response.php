@@ -28,12 +28,6 @@ if(isset($_GET["t"])) {
     $type = Secure::string($_GET["t"]);
 }
 
-if($type != "mcq" || $type != "text") {
-    die(json_encode(array(
-        "sx" => false
-    )));
-}
-
 $setId = Session::getVar("SET_ID");
 $userId = Auth::userId();
 
@@ -67,6 +61,7 @@ if($type == "mcq") {
         "choice_id" => $choiceId,
         "user_id" => $userId
     ));
+
 } elseif($type == "text") {
 
     $response = explode("_", $response);

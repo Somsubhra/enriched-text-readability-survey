@@ -2,8 +2,12 @@
     margin-top: 60px;
 }
 
+.margin-top-10 {
+    margin-top: 10px;
+}
+
 #footer {
-    position: absolute;
+    position: fixed;
     bottom: 0;
     width: 100%;
     height: 40px;

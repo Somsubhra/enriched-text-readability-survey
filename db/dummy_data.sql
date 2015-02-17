@@ -31,6 +31,10 @@ INSERT INTO question(`id`, `content`, `passage_id`, `set_id`) VALUES
 (1, 'Question 1 of passage 2 of set 4', 2, 4),
 (2, 'Question 2 of passage 2 of set 4', 2, 4);
 
+INSERT INTO question(`id`, `content`, `passage_id`, `set_id`, `res_type`) VALUES
+(3, 'Question 3 of passage 1 of set 1', 1, 1, 'text'),
+(4, 'Question 4 of passage 1 of set 1', 1, 1, 'text');
+
 INSERT INTO choice(`id`, `content`, `question_id`, `passage_id`, `set_id`) VALUES
 (1, 'Option 1', 1, 1, 1),
 (2, 'Option 2', 1, 1, 1),

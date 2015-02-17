@@ -115,6 +115,17 @@ Printer::printAuthNav($userId);
 
                 $answered = $res1->fetchColumn();
 
+                $query1 = "SELECT COUNT(DISTINCT question_id) FROM response_text
+                WHERE set_id=:set_id AND passage_id=:passage_id AND user_id=:user_id";
+
+                $res1 = DB::query($query1, array(
+                    "set_id" => $setId,
+                    "passage_id" => $rowId,
+                    "user_id" => $userId
+                ));
+
+                $answered += $res1->fetchColumn();
+
                 echo "<a href='test.php?id=" .
                     $rowId .
                     "' class='list-group-item $active'>Passage #" .
@@ -149,7 +160,7 @@ Printer::printAuthNav($userId);
         <h4>Questions</h4>
         <ul class="list-group">
             <?php
-            $query = "SELECT id, content FROM question
+            $query = "SELECT id, content, res_type FROM question
             WHERE passage_id=:passage_id AND set_id=:set_id";
 
             $res = DB::query($query, array(
@@ -161,48 +172,80 @@ Printer::printAuthNav($userId);
 
                 $questionId = $row["id"];
 
-                // Get the selected choice if any
-                $query1 = "SELECT choice_id FROM response
-                WHERE question_id=:question_id AND passage_id=:passage_id
-                AND set_id=:set_id AND user_id=:user_id
-                ORDER BY creation_time";
-
-                $res1 = DB::query($query1, array(
-                    "question_id" => $questionId,
-                    "passage_id" => $passageId,
-                    "set_id" => $setId,
-                    "user_id" => $userId
-                ));
-
-                $selectedChoice = -1;
-                while($row1 = $res1->fetch(PDO::FETCH_ASSOC)) {
-                    $selectedChoice = $row1["choice_id"];
-                }
+                $questionType = $row["res_type"];
 
                 $html = "<li class='list-group-item'>";
                 $html .= $row["content"];
 
-                $query1 = "SELECT id, content FROM choice
-                WHERE question_id=:question_id AND passage_id=:passage_id AND set_id=:set_id";
+                if($questionType == "mcq") {
+                    // Get the selected choice if any
+                    $query1 = "SELECT choice_id FROM response
+                    WHERE question_id=:question_id AND passage_id=:passage_id
+                    AND set_id=:set_id AND user_id=:user_id
+                    ORDER BY creation_time";
 
-                $res1 = DB::query($query1, array(
-                    "question_id" => $questionId,
-                    "passage_id" => $passageId,
-                    "set_id" => $setId
-                ));
+                    $res1 = DB::query($query1, array(
+                        "question_id" => $questionId,
+                        "passage_id" => $passageId,
+                        "set_id" => $setId,
+                        "user_id" => $userId
+                    ));
 
-                while($row1 = $res1->fetch(PDO::FETCH_ASSOC)) {
-
-                    $choiceId = $row1["id"];
-                    $selected = "";
-                    if($selectedChoice == $choiceId) {
-                        $selected = "checked";
+                    $selectedChoice = -1;
+                    while($row1 = $res1->fetch(PDO::FETCH_ASSOC)) {
+                        $selectedChoice = $row1["choice_id"];
                     }
 
-                    $value = $choiceId . "_" . $questionId . "_" . $passageId;
-                    $html .= "<div class='radio'><label><input type='radio' name='ans_" .
-                        $questionId . "' class='res-inp' value='" . $value . "' $selected> " .
-                        $row1["content"] . "</label></div>";
+                    $query1 = "SELECT id, content FROM choice
+                    WHERE question_id=:question_id AND passage_id=:passage_id AND set_id=:set_id";
+
+                    $res1 = DB::query($query1, array(
+                        "question_id" => $questionId,
+                        "passage_id" => $passageId,
+                        "set_id" => $setId
+                    ));
+
+                    while($row1 = $res1->fetch(PDO::FETCH_ASSOC)) {
+
+                        $choiceId = $row1["id"];
+                        $selected = "";
+                        if($selectedChoice == $choiceId) {
+                            $selected = "checked";
+                        }
+
+                        $value = $choiceId . "_" . $questionId . "_" . $passageId;
+                        $html .= "<div class='radio'><label><input type='radio' name='ans_" .
+                            $questionId . "' class='res-inp' value='" . $value . "' $selected> " .
+                            $row1["content"] . "</label></div>";
+                    }
+                } elseif($questionType == "text") {
+
+                    $query1 = "SELECT content FROM response_text
+                    WHERE question_id=:question_id AND passage_id=:passage_id
+                    AND set_id=:set_id AND user_id=:user_id
+                    ORDER BY creation_time";
+
+                    $res1 = DB::query($query1, array(
+                        "question_id" => $questionId,
+                        "passage_id" => $passageId,
+                        "set_id" => $setId,
+                        "user_id" => $userId
+                    ));
+
+                    $currAnswer = "";
+                    while($row1 = $res1->fetch(PDO::FETCH_ASSOC)) {
+                        $currAnswer = $row1["content"];
+                    }
+
+                    $html .= "<div class='form-group margin-top-10'>";
+                    $dataId = $questionId . "_" . $passageId;
+                    $html .= "<input data-id='" . $dataId . "'";
+                    $html .= "class='form-control res-text-inp' type='text'";
+                    $html .= "value='" . $currAnswer . "'";
+                    $html .= "placeholder='Enter your answer and press enter'>";
+                    $html .= "</div>";
+                } else {
+                    // Invalid
                 }
 
                 $html .= "</li>";
