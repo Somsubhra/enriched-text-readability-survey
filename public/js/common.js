@@ -28,10 +28,19 @@ function startCountdown(timeLeft) {
 }
 
 $(document).ready(function() {
+
+    var saved = $("#saved");
+    saved.hide();
+
     $(".res-inp").click(function() {
         $.getJSON("response.php",
             {
                 "res": $(this).val()
+            }).done(function(data) {
+                if(data.sx) {
+                    saved.fadeIn(300);
+                    saved.fadeOut(3000);
+                }
             });
     });
 
@@ -44,6 +53,11 @@ $(document).ready(function() {
                     "res": $(this).attr("data-id"),
                     "c": $(this).val(),
                     "t": "text"
+                }).done(function(data) {
+                    if(data.sx) {
+                        saved.fadeIn(300);
+                        saved.fadeOut(3000);
+                    }
                 });
         }
     });

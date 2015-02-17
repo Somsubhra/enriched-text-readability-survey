@@ -68,7 +68,12 @@ $secondsLeft = $timeLeft % 60;
 Printer::printAuthNav($userId);
 ?>
 
-<div class="container">
+<div id="saved" class="alert alert-success" hidden>
+    <span class="glyphicon glyphicon-ok"></span>
+    Answer marked successfully
+</div>
+
+<div class="container margin-bottom-70">
     <div class="col-md-2">
         <div class="well" hidden>
             <h1 class="text-center">
