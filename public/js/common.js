@@ -17,7 +17,7 @@ function startCountdown(timeLeft) {
 
     setInterval(function() {
         if(tl <= 0) {
-            document.location = "logout.php";
+            //document.location = "logout.php";
         }
 
         tl--;
@@ -32,7 +32,7 @@ function txtRes(el) {
     if(el.val() == "") {
         return;
     }
-    
+
     var saved = $("#saved");
 
     $.getJSON("response.php",
