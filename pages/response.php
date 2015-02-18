@@ -81,6 +81,12 @@ if($type == "mcq") {
         $content = Secure::string($_GET["c"]);
     }
 
+    if($content == "") {
+        die(json_encode(array(
+            "sx" => false
+        )));
+    }
+
     $query = "INSERT INTO response_text(question_id, passage_id, set_id, content, user_id)
     VALUES(:question_id, :passage_id, :set_id, :content, :user_id)";
 

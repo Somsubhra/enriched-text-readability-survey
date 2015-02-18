@@ -27,6 +27,27 @@ function startCountdown(timeLeft) {
     }, 1000);
 }
 
+function txtRes(el) {
+
+    if(el.val() == "") {
+        return;
+    }
+    
+    var saved = $("#saved");
+
+    $.getJSON("response.php",
+        {
+            "res": el.attr("data-id"),
+            "c": el.val(),
+            "t": "text"
+        }).done(function(data) {
+            if(data.sx) {
+                saved.fadeIn(300);
+                saved.fadeOut(3000);
+            }
+        });
+}
+
 $(document).ready(function() {
 
     var saved = $("#saved");
@@ -44,21 +65,17 @@ $(document).ready(function() {
             });
     });
 
-    $(".res-text-inp").keypress(function(e) {
+    var resTxt = $(".res-text-inp");
+
+    resTxt.keypress(function(e) {
         var key = e.which;
 
         if(key == 13) {
-            $.getJSON("response.php",
-                {
-                    "res": $(this).attr("data-id"),
-                    "c": $(this).val(),
-                    "t": "text"
-                }).done(function(data) {
-                    if(data.sx) {
-                        saved.fadeIn(300);
-                        saved.fadeOut(3000);
-                    }
-                });
+            txtRes($(this));
         }
+    });
+
+    resTxt.focusout(function(e) {
+        txtRes($(this));
     });
 });
